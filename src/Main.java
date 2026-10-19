@@ -22,24 +22,30 @@ public class Main {
                 break;
             }
 
-            if (question.isEmpty()) {
-                System.out.println(YELLOW + "  Котовий: Напиши питання, будь ласка. 😺" + RESET);
-            } else {
-                think();
-                try {
-                    double result = CodeCalculator.CALCULATE(question);
-                    System.out.println(GREEN + "  Котовий: " + result + " 🐾\n" + RESET);
-                } catch (IllegalArgumentException e) {
-                    if (looksLikeMath(question)) {
-                        System.out.println(YELLOW + "  Котовий: Не вдалося порахувати цей вираз. Перевір його.\n" + RESET);
-                    } else {
-                        System.out.println(GREEN + "  Котовий: База не підключена. 🐾\n" + RESET);
-                    }
-                }
-            }
+            Process(question);
         }
 
         scanner.close();
+    }
+
+    private static void Process(String q) {
+        System.out.println("DEBUG: input=" + q);
+        if (q.isEmpty()) {
+            System.out.println(YELLOW + "  Котовий: Напиши питання, будь ласка. 😺" + RESET);
+            return;
+        }
+
+        think();
+        try {
+            double x = CodeCalculator.CALCULATE(q);
+            System.out.println(GREEN + "  Котовий: " + x + " 🐾\n" + RESET);
+        } catch (Exception e) {
+            if (looksLikeMath(q)) {
+                System.out.println(YELLOW + "  Котовий: Не вдалося порахувати цей вираз. Перевір його.\n" + RESET);
+            } else {
+                System.out.println(GREEN + "  Котовий: База не підключена. 🐾\n" + RESET);
+            }
+        }
     }
 
     private static void showWelcomeScreen() {
